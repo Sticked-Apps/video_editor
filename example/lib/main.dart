@@ -44,17 +44,15 @@ class _VideoPickerPageState extends State<VideoPickerPage> {
   void _pickVideo() async {
     final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);
     if (file != null)
-      context.navigator.push(MaterialPageRoute<void>(
-          builder: (BuildContext context) =>
-              VideoEditor(file: File(file.path))));
+      context.navigator
+          .push(MaterialPageRoute<void>(builder: (BuildContext context) => VideoEditor(file: File(file.path))));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-          backgroundColor: Colors.blue, title: Text("Image / Video Picker")),
+      appBar: AppBar(backgroundColor: Colors.blue, title: Text("Image / Video Picker")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -100,8 +98,7 @@ class _VideoEditorState extends State<VideoEditor> {
 
   @override
   void initState() {
-    _controller = VideoEditorController.file(widget.file,
-        maxDuration: Duration(seconds: 30))
+    _controller = VideoEditorController.file(widget.file, maxDuration: Duration(seconds: 30))
       ..initialize().then((_) => setState(() {}));
     super.initState();
   }
@@ -114,8 +111,8 @@ class _VideoEditorState extends State<VideoEditor> {
     super.dispose();
   }
 
-  void _openCropScreen() => context.navigator.push(MaterialPageRoute<void>(
-      builder: (BuildContext context) => CropScreen(controller: _controller)));
+  void _openCropScreen() => context.navigator
+      .push(MaterialPageRoute<void>(builder: (BuildContext context) => CropScreen(controller: _controller)));
 
   void _exportVideo() async {
     _isExporting.value = true;
@@ -129,16 +126,14 @@ class _VideoEditorState extends State<VideoEditor> {
         if (_firstStat) {
           _firstStat = false;
         } else {
-          _exportingProgress.value = statics.getTime() /
-              _controller.video.value.duration.inMilliseconds;
+          _exportingProgress.value = statics.getTime() / _controller.video.value.duration.inMilliseconds;
         }
       },
       onCompleted: (file) {
         _isExporting.value = false;
         if (!mounted) return;
         if (file != null) {
-          final VideoPlayerController _videoController =
-              VideoPlayerController.file(file);
+          final VideoPlayerController _videoController = VideoPlayerController.file(file);
           _videoController.initialize().then((value) async {
             setState(() {});
             _videoController.play();
@@ -176,8 +171,7 @@ class _VideoEditorState extends State<VideoEditor> {
           showModalBottomSheet(
             context: context,
             backgroundColor: Colors.black54,
-            builder: (BuildContext context) =>
-                Image.memory(cover.readAsBytesSync()),
+            builder: (BuildContext context) => Image.memory(cover.readAsBytesSync()),
           );
         } else
           _exportText = "Error on cover exportation :(";
@@ -223,8 +217,7 @@ class _VideoEditorState extends State<VideoEditor> {
                                           color: Colors.white,
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Icon(Icons.play_arrow,
-                                            color: Colors.black),
+                                        child: Icon(Icons.play_arrow, color: Colors.black),
                                       ),
                                     ),
                                   ),
@@ -240,24 +233,14 @@ class _VideoEditorState extends State<VideoEditor> {
                                 TabBar(
                                   indicatorColor: Colors.white,
                                   tabs: [
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                              padding: Margin.all(5),
-                                              child: Icon(Icons.content_cut)),
-                                          Text('Trim')
-                                        ]),
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                              padding: Margin.all(5),
-                                              child: Icon(Icons.video_label)),
-                                          Text('Cover')
-                                        ]),
+                                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                      Padding(padding: Margin.all(5), child: Icon(Icons.content_cut)),
+                                      Text('Trim')
+                                    ]),
+                                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                      Padding(padding: Margin.all(5), child: Icon(Icons.video_label)),
+                                      Text('Cover')
+                                    ]),
                                   ],
                                 ),
                                 Expanded(
@@ -265,14 +248,10 @@ class _VideoEditorState extends State<VideoEditor> {
                                     children: [
                                       Container(
                                           child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: _trimSlider())),
+                                              mainAxisAlignment: MainAxisAlignment.center, children: _trimSlider())),
                                       Container(
                                         child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [_coverSelection()]),
+                                            mainAxisAlignment: MainAxisAlignment.center, children: [_coverSelection()]),
                                       ),
                                     ],
                                   ),
@@ -383,8 +362,8 @@ class _VideoEditorState extends State<VideoEditor> {
         width: MediaQuery.of(context).size.width,
         margin: Margin.vertical(height / 4),
         child: TrimSlider(
-            child: TrimTimeline(
-                controller: _controller, margin: EdgeInsets.only(top: 10)),
+            // child: TrimTimeline(
+            //     controller: _controller, margin: EdgeInsets.only(top: 10)),
             controller: _controller,
             height: height,
             horizontalMargin: height / 4),
@@ -413,8 +392,7 @@ class _VideoEditorState extends State<VideoEditor> {
           width: double.infinity,
           color: Colors.black.withOpacity(0.8),
           child: Center(
-            child: Text(_exportText,
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            child: Text(_exportText, style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ),
       ),
@@ -447,8 +425,7 @@ class CropScreen extends StatelessWidget {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () =>
-                      controller.rotate90Degrees(RotateDirection.right),
+                  onTap: () => controller.rotate90Degrees(RotateDirection.right),
                   child: Icon(Icons.rotate_right),
                 ),
               )
@@ -457,8 +434,7 @@ class CropScreen extends StatelessWidget {
             Expanded(
               child: AnimatedInteractiveViewer(
                 maxScale: 2.4,
-                child: CropGridViewer(
-                    controller: controller, horizontalMargin: 60),
+                child: CropGridViewer(controller: controller, horizontalMargin: 60),
               ),
             ),
             SizedBox(height: 15),
