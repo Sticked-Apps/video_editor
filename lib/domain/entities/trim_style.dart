@@ -4,7 +4,7 @@ class TrimSliderStyle {
   ///Style for [TrimSlider]. It's use on VideoEditorController
   TrimSliderStyle(
       {Color? background,
-      this.positionLineColor = Colors.red,
+      this.positionLineColor = Colors.green,
       this.positionlineWidth = 2,
       this.lineColor = Colors.white,
       this.lineWidth = 2,
