@@ -3,7 +3,7 @@ import 'package:video_editor/domain/bloc/controller.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoViewer extends StatefulWidget {
-  VideoViewer({
+  const VideoViewer({
     Key? key,
     required this.controller,
     this.child,
@@ -13,7 +13,7 @@ class VideoViewer extends StatefulWidget {
   final Widget? child;
 
   @override
-  _VideoViewerState createState() => _VideoViewerState();
+  State<VideoViewer> createState() => _VideoViewerState();
 }
 
 class _VideoViewerState extends State<VideoViewer> {
@@ -29,10 +29,11 @@ class _VideoViewerState extends State<VideoViewer> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (_controller.value.isPlaying)
+        if (_controller.value.isPlaying) {
           _controller.pause();
-        else
+        } else {
           _controller.play();
+        }
       },
       child: Center(
         child: Stack(children: [

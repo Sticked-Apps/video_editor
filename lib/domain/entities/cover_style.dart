@@ -5,10 +5,20 @@ class CoverSelectionStyle {
   CoverSelectionStyle({
     Color? selectedBorderColor,
     this.selectedBorderWidth = 2,
-  }) : this.selectedBorderColor = selectedBorderColor ?? Colors.white;
+    this.selectedIndicator,
+    this.selectedIndicatorAlign = Alignment.bottomRight,
+  }) : selectedBorderColor = selectedBorderColor ?? Colors.white;
 
-  ///The border color displayed around the selected frame. Default `Colors.white`
+  /// The [selectedBorderColor] param specifies the color of the border around the selected cover thumbnail
+  /// The default value of this property is `Colors.white`
   final Color selectedBorderColor;
 
+  /// The [selectedBorderWidth] param specifies the width of the border around the selected cover thumbnail
   final double selectedBorderWidth;
+
+  /// The [selectedIndicator] param specifies the [Widget] to show on top of the selected cover
+  final Widget? selectedIndicator;
+
+  /// The [selectedIndicatorAlign] param specifies where [selectedIndicator] should be shown in the [Stack]
+  final AlignmentGeometry selectedIndicatorAlign;
 }

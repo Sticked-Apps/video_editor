@@ -1,12 +1,17 @@
 name: video_editor
+<<<<<<< HEAD
 version: 1.2.4
 description: Video Editor allows trim, crop, rotate and scale video with a super
   flexible UI Design.
+=======
+version: 1.4.3
+description: A video editor that allows to trim, crop, rotate and scale video with a very flexible UI Design.
+>>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
 homepage: https://github.com/seel-channel/video_editor
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.17.0"
+  flutter: ">=3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   ffmpeg_kit_flutter_full: ^4.5.1
@@ -18,3 +23,17 @@ dependencies:
   video_thumbnail: ^0.4.3
 
 
+<<<<<<< HEAD
+=======
+  ffmpeg_kit_flutter_min_gpl: ^4.5.1
+  path_provider: ^2.0.10
+  video_player: ^2.4.5
+  video_thumbnail: ^0.5.0
+  path: ^1.8.0 # update to `1.8.1` causes #79
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.1
+>>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
