@@ -48,11 +48,6 @@ class _VideoPickerPageState extends State<VideoPickerPage> {
 
   void _pickVideo() async {
     final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);
-<<<<<<< HEAD
-    if (file != null)
-      context.navigator
-          .push(MaterialPageRoute<void>(builder: (BuildContext context) => VideoEditor(file: File(file.path))));
-=======
     if (mounted && file != null) {
       Navigator.push(
           context,
@@ -60,20 +55,15 @@ class _VideoPickerPageState extends State<VideoPickerPage> {
               builder: (BuildContext context) =>
                   VideoEditor(file: File(file.path))));
     }
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-<<<<<<< HEAD
-      appBar: AppBar(backgroundColor: Colors.blue, title: Text("Image / Video Picker")),
-=======
       appBar: AppBar(
           backgroundColor: Colors.blue,
           title: const Text("Image / Video Picker")),
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -119,12 +109,8 @@ class _VideoEditorState extends State<VideoEditor> {
 
   @override
   void initState() {
-<<<<<<< HEAD
-    _controller = VideoEditorController.file(widget.file, maxDuration: Duration(seconds: 30))
-=======
     _controller = VideoEditorController.file(widget.file,
         maxDuration: const Duration(seconds: 30))
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
       ..initialize().then((_) => setState(() {}));
     super.initState();
   }
@@ -137,16 +123,11 @@ class _VideoEditorState extends State<VideoEditor> {
     super.dispose();
   }
 
-<<<<<<< HEAD
-  void _openCropScreen() => context.navigator
-      .push(MaterialPageRoute<void>(builder: (BuildContext context) => CropScreen(controller: _controller)));
-=======
   void _openCropScreen() => Navigator.push(
       context,
       MaterialPageRoute<void>(
           builder: (BuildContext context) =>
               CropScreen(controller: _controller)));
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
 
   void _exportVideo() async {
     _exportingProgress.value = 0;
@@ -155,31 +136,6 @@ class _VideoEditorState extends State<VideoEditor> {
     await _controller.exportVideo(
       // preset: VideoExportPreset.medium,
       // customInstruction: "-crf 17",
-<<<<<<< HEAD
-      onProgress: (statics) {
-        // First statistics is always wrong so if first one skip it
-        if (_firstStat) {
-          _firstStat = false;
-        } else {
-          _exportingProgress.value = statics.getTime() / _controller.video.value.duration.inMilliseconds;
-        }
-      },
-      onCompleted: (file) {
-        _isExporting.value = false;
-        if (!mounted) return;
-        if (file != null) {
-          final VideoPlayerController _videoController = VideoPlayerController.file(file);
-          _videoController.initialize().then((value) async {
-            setState(() {});
-            _videoController.play();
-            _videoController.setLooping(true);
-            await showModalBottomSheet(
-              context: context,
-              backgroundColor: Colors.black54,
-              builder: (_) => AspectRatio(
-                aspectRatio: _videoController.value.aspectRatio,
-                child: VideoPlayer(_videoController),
-=======
       onProgress: (stats, value) => _exportingProgress.value = value,
       onError: (e, s) => _exportText = "Error on export video :(",
       onCompleted: (file) {
@@ -201,7 +157,6 @@ class _VideoEditorState extends State<VideoEditor> {
                   aspectRatio: videoController.value.aspectRatio,
                   child: VideoPlayer(videoController),
                 ),
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
               ),
             ),
           );
@@ -224,17 +179,6 @@ class _VideoEditorState extends State<VideoEditor> {
       onCompleted: (cover) {
         if (!mounted) return;
 
-<<<<<<< HEAD
-        if (cover != null) {
-          _exportText = "Cover exported! ${cover.path}";
-          showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.black54,
-            builder: (BuildContext context) => Image.memory(cover.readAsBytesSync()),
-          );
-        } else
-          _exportText = "Error on cover exportation :(";
-=======
         _exportText = "Cover exported! ${cover.path}";
         showDialog(
           context: context,
@@ -243,7 +187,6 @@ class _VideoEditorState extends State<VideoEditor> {
             child: Center(child: Image.memory(cover.readAsBytesSync())),
           ),
         );
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
 
         setState(() => _exported = true);
         Future.delayed(const Duration(seconds: 2),
@@ -287,12 +230,8 @@ class _VideoEditorState extends State<VideoEditor> {
                                           color: Colors.white,
                                           shape: BoxShape.circle,
                                         ),
-<<<<<<< HEAD
-                                        child: Icon(Icons.play_arrow, color: Colors.black),
-=======
                                         child: const Icon(Icons.play_arrow,
                                             color: Colors.black),
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
                                       ),
                                     ),
                                   ),
@@ -308,16 +247,6 @@ class _VideoEditorState extends State<VideoEditor> {
                                 TabBar(
                                   indicatorColor: Colors.white,
                                   tabs: [
-<<<<<<< HEAD
-                                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                      Padding(padding: Margin.all(5), child: Icon(Icons.content_cut)),
-                                      Text('Trim')
-                                    ]),
-                                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                      Padding(padding: Margin.all(5), child: Icon(Icons.video_label)),
-                                      Text('Cover')
-                                    ]),
-=======
                                     Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -336,21 +265,11 @@ class _VideoEditorState extends State<VideoEditor> {
                                               child: Icon(Icons.video_label)),
                                           Text('Cover')
                                         ]),
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
                                   ],
                                 ),
                                 Expanded(
                                   child: TabBarView(
                                     children: [
-<<<<<<< HEAD
-                                      Container(
-                                          child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center, children: _trimSlider())),
-                                      Container(
-                                        child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center, children: [_coverSelection()]),
-                                      ),
-=======
                                       Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -359,7 +278,6 @@ class _VideoEditorState extends State<VideoEditor> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [_coverSelection()]),
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
                                     ],
                                   ),
                                 )
@@ -472,11 +390,6 @@ class _VideoEditorState extends State<VideoEditor> {
         width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.symmetric(vertical: height / 4),
         child: TrimSlider(
-<<<<<<< HEAD
-            // child: TrimTimeline(
-            //     controller: _controller, margin: EdgeInsets.only(top: 10)),
-=======
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
             controller: _controller,
             height: height,
             horizontalMargin: height / 4,
@@ -508,12 +421,8 @@ class _VideoEditorState extends State<VideoEditor> {
           width: double.infinity,
           color: Colors.black.withOpacity(0.8),
           child: Center(
-<<<<<<< HEAD
-            child: Text(_exportText, style: TextStyle(fontWeight: FontWeight.bold)),
-=======
             child: Text(_exportText,
                 style: const TextStyle(fontWeight: FontWeight.bold)),
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
           ),
         ),
       ),
@@ -546,16 +455,10 @@ class CropScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-<<<<<<< HEAD
-                child: GestureDetector(
-                  onTap: () => controller.rotate90Degrees(RotateDirection.right),
-                  child: Icon(Icons.rotate_right),
-=======
                 child: IconButton(
                   onPressed: () =>
                       controller.rotate90Degrees(RotateDirection.right),
                   icon: const Icon(Icons.rotate_right),
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
                 ),
               )
             ]),
@@ -563,7 +466,8 @@ class CropScreen extends StatelessWidget {
             Expanded(
               child: AnimatedInteractiveViewer(
                 maxScale: 2.4,
-                child: CropGridViewer(controller: controller, horizontalMargin: 60),
+                child: CropGridViewer(
+                    controller: controller, horizontalMargin: 60),
               ),
             ),
             const SizedBox(height: 15),

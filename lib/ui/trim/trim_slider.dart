@@ -108,7 +108,6 @@ class _TrimSliderState extends State<TrimSlider>
         // avoid minTrim to be bigger than maxTrim
         if (pos.dx > widget.horizontalMargin &&
             pos.dx < _rect.right - _trimWidth * 2) {
-<<<<<<< HEAD
           if (_rect.width < _maxRectWidth || delta.dx > 0)
             _changeTrimRect(
                 left: pos.dx,
@@ -119,9 +118,6 @@ class _TrimSliderState extends State<TrimSlider>
               pos.dx > widget.horizontalMargin &&
               pos.dx < _rect.right)
             _changeTrimRect(left: _rect.left + delta.dx);
-=======
-          _changeTrimRect(left: pos.dx, width: _rect.width - delta.dx);
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
         }
         break;
       case _TrimBoundaries.right:
@@ -129,7 +125,6 @@ class _TrimSliderState extends State<TrimSlider>
         // avoid maxTrim to be smaller than minTrim
         if (pos.dx < _trimLayout.width + widget.horizontalMargin &&
             pos.dx > _rect.left + _trimWidth * 2) {
-<<<<<<< HEAD
           if (_rect.width - _maxRectWidth < -0.0000000000005 || delta.dx < 0)
             _changeTrimRect(
                 width: _rect.width + delta.dx >= _maxRectWidth
@@ -138,9 +133,6 @@ class _TrimSliderState extends State<TrimSlider>
           else if (delta.dx > 0 && pos.dx > widget.horizontalMargin) {
             _changeTrimRect(left: _rect.left + delta.dx);
           }
-=======
-          _changeTrimRect(width: _rect.width + delta.dx);
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
         }
         break;
       case _TrimBoundaries.inside:

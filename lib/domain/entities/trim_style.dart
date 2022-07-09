@@ -2,24 +2,6 @@ import 'package:flutter/material.dart';
 
 class TrimSliderStyle {
   ///Style for [TrimSlider]. It's use on VideoEditorController
-<<<<<<< HEAD
-  TrimSliderStyle(
-      {Color? background,
-      this.positionLineColor = Colors.green,
-      this.positionlineWidth = 2,
-      this.lineColor = Colors.white,
-      this.lineWidth = 2,
-      this.iconColor = Colors.black,
-      this.circleSize = 8,
-      this.iconSize = 25,
-      this.leftIcon = Icons.arrow_left,
-      this.rightIcon = Icons.arrow_right})
-      : this.background = background ?? Colors.black.withOpacity(0.6);
-
-  ///It is the color line that indicate the video position
-  final Color positionLineColor;
-  final double positionlineWidth;
-=======
   TrimSliderStyle({
     Color? background,
     this.positionLineColor = Colors.red,
@@ -32,7 +14,6 @@ class TrimSliderStyle {
     this.leftIcon = Icons.arrow_left,
     this.rightIcon = Icons.arrow_right,
   }) : background = background ?? Colors.black.withOpacity(0.6);
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
 
   /// The [background] param specifies the color of the paint area outside the trimmed area
   /// The default value of this property `Colors.black.withOpacity(0.6)

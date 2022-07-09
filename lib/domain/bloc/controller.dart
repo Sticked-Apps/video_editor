@@ -21,13 +21,6 @@ enum RotateDirection { left, right }
 ///
 /// A slower preset will provide better compression (compression is quality per filesize).
 ///
-<<<<<<< HEAD
-///This means that, for example, if you target a certain file size or constant bit rate,
-///you will achieve better quality with a slower preset.
-///Similarly, for constant quality encoding,
-///you will simply save bitrate by choosing a slower preset.
-enum VideoExportPreset { none, ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow }
-=======
 /// This means that, for example, if you target a certain file size or constant bit rate,
 /// you will achieve better quality with a slower preset.
 /// Similarly, for constant quality encoding,
@@ -44,7 +37,6 @@ enum VideoExportPreset {
   slower,
   veryslow
 }
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
 
 /// The default value of this property `Offset(1.0, 1.0)`
 const Offset _max = Offset(1.0, 1.0);
@@ -133,14 +125,9 @@ class VideoEditorController extends ChangeNotifier {
   /// Get the [VideoPlayerController.value.duration]
   Duration get videoDuration => _video.value.duration;
 
-<<<<<<< HEAD
-  ///Get the [Video Dimension] like VideoWidth and VideoHeight
-  Size get videoDimension => Size(_videoWidth.toDouble(), _videoHeight.toDouble());
-=======
   /// Get the [Size] of the video
   Size get videoDimension =>
       Size(_videoWidth.toDouble(), _videoHeight.toDouble());
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
 
   /// The [minTrim] param is the minimum position of the trimmed area on the slider
   ///
@@ -199,41 +186,9 @@ class VideoEditorController extends ChangeNotifier {
   /// The [preferredCropAspectRatio] param is the selected aspect ratio (9:16, 3:4, 1:1, ...)
   double? get preferredCropAspectRatio => _preferredCropAspectRatio;
   set preferredCropAspectRatio(double? value) {
-<<<<<<< HEAD
-    if (value == null) {
-      _preferredCropAspectRatio = value;
-      notifyListeners();
-    } else if (value >= 0) {
-      // TODO : when switching from a preferred aspect ratio to another it keep reducing the crop size
-
-      final length = cropStyle.boundariesLength * 4;
-      final videoWidth = videoDimension.width;
-      final videoHeight = videoDimension.height;
-      final cropHeight = (cacheMaxCrop.dy - cacheMinCrop.dy) * videoHeight;
-      final cropWidth = (cacheMaxCrop.dx - cacheMinCrop.dx) * videoWidth;
-      Offset newMax = Offset(
-        cropWidth / videoWidth,
-        (cropWidth / value) / videoWidth,
-      );
-
-      if (newMax.dy > _max.dy || newMax.dx > _max.dx) {
-        newMax = Offset(
-          (cropHeight * value) / cropHeight,
-          cropHeight / videoHeight,
-        );
-      }
-
-      if ((newMax.dx - cacheMinCrop.dx) * videoWidth > length && (newMax.dy - cacheMinCrop.dy) * videoHeight > length) {
-        cacheMaxCrop = newMax;
-        _preferredCropAspectRatio = value;
-        notifyListeners();
-      }
-    }
-=======
     if (preferredCropAspectRatio == value) return;
     _preferredCropAspectRatio = value;
     notifyListeners();
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
   }
 
   //----------------//
@@ -255,16 +210,10 @@ class VideoEditorController extends ChangeNotifier {
     _maxDuration = _maxDuration == Duration.zero ? videoDuration : _maxDuration;
 
     // Trim straight away when maxDuration is lower than video duration
-<<<<<<< HEAD
-    if (_maxDuration < videoDuration)
-      updateTrim(0.0, _maxDuration.inMilliseconds / videoDuration.inMilliseconds);
-    else
-=======
     if (_maxDuration < videoDuration) {
       updateTrim(
           0.0, _maxDuration.inMilliseconds / videoDuration.inMilliseconds);
     } else {
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
       _updateTrimRange();
     }
 
@@ -285,13 +234,9 @@ class VideoEditorController extends ChangeNotifier {
 
   void _videoListener() {
     final position = videoPosition;
-<<<<<<< HEAD
-    if (position < _trimStart || position >= _trimEnd) _video.seekTo(_trimStart);
-=======
     if (position < _trimStart || position >= _trimEnd) {
       _video.seekTo(_trimStart);
     }
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
   }
 
   //----------//
@@ -370,16 +315,11 @@ class VideoEditorController extends ChangeNotifier {
   /// if no [maxDuration] param given in VideoEditorController constructor, maxDuration is equal to the videoDuration
   Duration get maxDuration => _maxDuration;
 
-<<<<<<< HEAD
-  ///Get the **VideoPosition** (Range is `0.0` to `1.0`).
-  double get trimPosition => videoPosition.inMilliseconds / videoDuration.inMilliseconds;
-=======
   /// Get the [trimPosition], which is the videoPosition in the trim slider
   ///
   /// Range of the param is `0.0` to `1.0`.
   double get trimPosition =>
       videoPosition.inMilliseconds / videoDuration.inMilliseconds;
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
 
   //-----------//
   //VIDEO COVER//
@@ -395,20 +335,6 @@ class VideoEditorController extends ChangeNotifier {
   /// If [isTrimming] is `false` or  [_selectedCover] is `null`, update _selectedCover
   /// Update only milliseconds time for performance reason
   void _checkUpdateDefaultCover() {
-<<<<<<< HEAD
-    if (!_isTrimming || _selectedCover.value == null) updateSelectedCover(CoverData(timeMs: startTrim.inMilliseconds));
-  }
-
-  ///Generate cover at startTrim time in milliseconds
-  void generateDefaultCoverThumnail() async {
-    final defaultCover = await generateCoverThumbnail(timeMs: startTrim.inMilliseconds);
-    updateSelectedCover(defaultCover);
-  }
-
-  ///Generate cover data depending on milliseconds
-  Future<CoverData> generateCoverThumbnail({int timeMs = 0, int quality = 10}) async {
-    final Uint8List? _thumbData = await VideoThumbnail.thumbnailData(
-=======
     if (!_isTrimming || _selectedCover.value == null) {
       updateSelectedCover(CoverData(timeMs: startTrim.inMilliseconds));
     }
@@ -427,7 +353,6 @@ class VideoEditorController extends ChangeNotifier {
   Future<CoverData> generateCoverThumbnail(
       {int timeMs = 0, int quality = 10}) async {
     final Uint8List? thumbData = await VideoThumbnail.thumbnailData(
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
       imageFormat: ImageFormat.JPEG,
       video: file.path,
       timeMs: timeMs,
@@ -478,15 +403,10 @@ class VideoEditorController extends ChangeNotifier {
   //VIDEO METADATA//
   //--------------//
 
-<<<<<<< HEAD
-  /// Return metadata of the video file
-  Future<void> getMetaData({required void Function(Map<dynamic, dynamic>? metadata) onCompleted}) async {
-=======
   /// Return the metadata of the video [file] using Ffprobe
   Future<void> getMetaData(
       {required void Function(Map<dynamic, dynamic>? metadata)
           onCompleted}) async {
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
     await FFprobeKit.getMediaInformationAsync(file.path, (session) async {
       final information = session.getMediaInformation();
       onCompleted(information?.getAllProperties());
@@ -543,21 +463,22 @@ class VideoEditorController extends ChangeNotifier {
 
     // CALCULATE FILTERS
     final String gif = format != "gif" ? "" : "fps=10 -loop 0";
-    final String trim = minTrim >= _min.dx && maxTrim <= _max.dx ? "-ss $_trimStart -to $_trimEnd" : "";
-    final String crop = minCrop >= _min && maxCrop <= _max ? await _getCrop() : "";
-    final String rotation = _rotation >= 360 || _rotation <= 0 ? "" : _getRotation();
-    final String scaleInstruction = scale == 1.0 ? "" : "scale=iw*$scale:ih*$scale";
+    final String trim = minTrim >= _min.dx && maxTrim <= _max.dx
+        ? "-ss $_trimStart -to $_trimEnd"
+        : "";
+    final String crop =
+        minCrop >= _min && maxCrop <= _max ? await _getCrop() : "";
+    final String rotation =
+        _rotation >= 360 || _rotation <= 0 ? "" : _getRotation();
+    final String scaleInstruction =
+        scale == 1.0 ? "" : "scale=iw*$scale:ih*$scale";
 
     // VALIDATE FILTERS
     final List<String> filters = [crop, scaleInstruction, rotation, gif];
     filters.removeWhere((item) => item.isEmpty);
-<<<<<<< HEAD
-    final String filter = filters.isNotEmpty && isFiltersEnabled ? "-filter:v " + filters.join(",") : "";
-=======
     final String filter = filters.isNotEmpty && isFiltersEnabled
         ? "-filter:v ${filters.join(",")}"
         : "";
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
     final String execute =
         // ignore: unnecessary_string_escapes
         " -i \'$videoPath\' ${customInstruction ?? ""} $filter ${_getPreset(preset)} $trim -y $outputPath";
@@ -566,7 +487,8 @@ class VideoEditorController extends ChangeNotifier {
     await FFmpegKit.executeAsync(
       execute,
       (session) async {
-        final state = FFmpegKitConfig.sessionStateToString(await session.getState());
+        final state =
+            FFmpegKitConfig.sessionStateToString(await session.getState());
         final code = await session.getReturnCode();
 
         if (code?.isValueSuccess() == true) {
@@ -703,14 +625,6 @@ class VideoEditorController extends ChangeNotifier {
     final int epoch = DateTime.now().millisecondsSinceEpoch;
     final String outputPath = "$tempPath/${name}_$epoch.$format";
 
-<<<<<<< HEAD
-    //-----------------//
-    //CALCULATE FILTERS//
-    //-----------------//
-    final String crop = minCrop >= _min && maxCrop <= _max ? await _getCrop() : "";
-    final String rotation = _rotation >= 360 || _rotation <= 0 ? "" : _getRotation();
-    final String scaleInstruction = scale == 1.0 ? "" : "scale=iw*$scale:ih*$scale";
-=======
     // CALCULATE FILTERS
     final String crop =
         minCrop >= _min && maxCrop <= _max ? await _getCrop() : "";
@@ -718,27 +632,22 @@ class VideoEditorController extends ChangeNotifier {
         _rotation >= 360 || _rotation <= 0 ? "" : _getRotation();
     final String scaleInstruction =
         scale == 1.0 ? "" : "scale=iw*$scale:ih*$scale";
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
 
     // VALIDATE FILTERS
     final List<String> filters = [crop, scaleInstruction, rotation];
     filters.removeWhere((item) => item.isEmpty);
-<<<<<<< HEAD
-    final String filter = filters.isNotEmpty && isFiltersEnabled ? "-filter:v " + filters.join(",") : "";
-    final String execute = "-i \'$_coverPath\' $filter -y $outputPath";
-=======
     final String filter = filters.isNotEmpty && isFiltersEnabled
         ? "-filter:v ${filters.join(",")}"
         : "";
     // ignore: unnecessary_string_escapes
     final String execute = "-i \'$coverPath\' $filter -y $outputPath";
->>>>>>> 4f00c4e9bd7111917da67a909267047fcd3d55aa
 
     // PROGRESS CALLBACKS
     await FFmpegKit.executeAsync(
       execute,
       (session) async {
-        final state = FFmpegKitConfig.sessionStateToString(await session.getState());
+        final state =
+            FFmpegKitConfig.sessionStateToString(await session.getState());
         final code = await session.getReturnCode();
 
         if (code?.isValueSuccess() == true) {
